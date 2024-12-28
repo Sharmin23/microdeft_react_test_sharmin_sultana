@@ -36,7 +36,7 @@ const LoginForm = () => {
         localStorage.setItem("authToken", data.data.token);
         localStorage.setItem("user", JSON.stringify(data.data.user));
 
-        setMessage("Login successful! 🎉");
+        setMessage("Login successful! ");
         console.log("Success:", data);
 
         navigate("/courseslist");
