@@ -39,7 +39,7 @@ const LoginForm = () => {
     <div className="flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-96 backdrop-filter backdrop-blur-sm bg-opacity-80">
         <h2 className="text-black text-2xl font-bold text-center mb-2">Login Now</h2>
-        <p className="text-gray-600 text-center mb-6">Sign in to access all the courses!</p>
+        <p className="text-gray-600 text-center mb-6">Sign in to access all the courses.</p>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <input
             type="email"
