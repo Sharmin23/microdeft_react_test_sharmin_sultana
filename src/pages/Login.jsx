@@ -7,16 +7,15 @@ const LoginForm = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  // Check if the user is already logged in
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      navigate('/courseslist'); // Redirect to courses list if logged in
+      navigate('/courseslist');
     }
   }, [navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
     try {
       const response = await fetch('https://react-interview.crd4lc.easypanel.host/api/login', {
@@ -34,14 +33,12 @@ const LoginForm = () => {
       if (response.ok) {
         const data = await response.json();
 
-        // Save the token and user data to localStorage
         localStorage.setItem('authToken', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
 
         setMessage('Login successful! 🎉');
         console.log('Success:', data);
 
-        // Redirect to /courseslist
         navigate('/courseslist');
       } else {
         setMessage('Login failed. Please check your inputs.');
