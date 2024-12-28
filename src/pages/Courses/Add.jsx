@@ -2,7 +2,7 @@ import React from 'react';
 
 const AddCourseForm = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="bg-white w-full max-w-3xl p-8 rounded-lg shadow-md">
         <h2 className="text-black text-2xl font-bold mb-2">Add New Course</h2>
         <p className="text-gray-600 mb-6">Please fill in the below information to add a new course</p>

@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  // Check if the user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      navigate('/courseslist'); // Redirect to courses list if logged in
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -23,11 +33,19 @@ const LoginForm = () => {
 
       if (response.ok) {
         const data = await response.json();
+
+        // Save the token and user data to localStorage
+        localStorage.setItem('authToken', data.data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+
         setMessage('Login successful! 🎉');
         console.log('Success:', data);
+
+        // Redirect to /courseslist
+        navigate('/courseslist');
       } else {
-        setMessage('Registration failed. Please check your inputs.');
-        console.error('Failed to register:', response.status);
+        setMessage('Login failed. Please check your inputs.');
+        console.error('Failed to login:', response.status);
       }
     } catch (error) {
       setMessage('An error occurred. Please try again later.');
