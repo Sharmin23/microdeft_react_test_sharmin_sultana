@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     if (token) {
-      navigate('/courseslist');
+      navigate("/courseslist");
     }
   }, [navigate]);
 
@@ -18,11 +18,11 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://react-interview.crd4lc.easypanel.host/api/login', {
-        method: 'POST',
+      const response = await fetch("https://react-interview.crd4lc.easypanel.host/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'Application/json',
+          "Content-Type": "application/json",
+          Accept: "Application/json",
         },
         body: JSON.stringify({
           email: email,
@@ -33,20 +33,20 @@ const LoginForm = () => {
       if (response.ok) {
         const data = await response.json();
 
-        localStorage.setItem('authToken', data.data.token);
-        localStorage.setItem('user', JSON.stringify(data.data.user));
+        localStorage.setItem("authToken", data.data.token);
+        localStorage.setItem("user", JSON.stringify(data.data.user));
 
-        setMessage('Login successful! 🎉');
-        console.log('Success:', data);
+        setMessage("Login successful! 🎉");
+        console.log("Success:", data);
 
-        navigate('/courseslist');
+        navigate("/courseslist");
       } else {
-        setMessage('Login failed. Please check your inputs.');
-        console.error('Failed to login:', response.status);
+        setMessage("Login failed. Please check your inputs.");
+        console.error("Failed to login:", response.status);
       }
     } catch (error) {
-      setMessage('An error occurred. Please try again later.');
-      console.error('Error:', error);
+      setMessage("An error occurred. Please try again later.");
+      console.error("Error:", error);
     }
   };
 
@@ -72,18 +72,15 @@ const LoginForm = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition duration-200"
-          >
+          <button type="submit" className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition duration-200">
             Login
           </button>
         </form>
         {message && <p className="text-center text-green-500 mt-4">{message}</p>}
         <div className="text-center mt-4">
-          <a href="/register" className="text-indigo-500 hover:underline">
+          <Link to="/register" className="text-indigo-500 hover:underline">
             Do not have an account? Register
-          </a>
+          </Link>
         </div>
       </div>
     </div>

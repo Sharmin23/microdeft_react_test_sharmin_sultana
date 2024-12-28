@@ -1,46 +1,46 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission
 
     try {
-      const response = await fetch('https://react-interview.crd4lc.easypanel.host/api/register', {
-        method: 'POST',
+      const response = await fetch("https://react-interview.crd4lc.easypanel.host/api/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'Application/json',
+          "Content-Type": "application/json",
+          Accept: "Application/json",
         },
         body: JSON.stringify({ name, email, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        setMessage('Registration successful! 🎉 Redirecting to login...');
-        setError('');
-        console.log('Success:', data);
+        setMessage("Registration successful! 🎉 Redirecting to login...");
+        setError("");
+        console.log("Success:", data);
 
         setTimeout(() => {
-          navigate('/login');
+          navigate("/login");
         }, 2000);
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Registration failed.');
-        setMessage('');
-        console.error('Error:', errorData);
+        setError(errorData.message || "Registration failed.");
+        setMessage("");
+        console.error("Error:", errorData);
       }
     } catch (error) {
-      setError('An error occurred. Please try again later.');
-      setMessage('');
-      console.error('Error:', error);
+      setError("An error occurred. Please try again later.");
+      setMessage("");
+      console.error("Error:", error);
     }
   };
 
@@ -74,19 +74,16 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition duration-200"
-          >
+          <button type="submit" className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition duration-200">
             Register
           </button>
         </form>
         {message && <p className="text-center text-green-500 mt-4">{message}</p>}
         {error && <p className="text-center text-red-500 mt-4">{error}</p>}
         <div className="text-center mt-4">
-          <a href="/login" className="text-indigo-500 hover:underline">
+          <Link to="/" className="text-indigo-500 hover:underline">
             Login Now
-          </a>
+          </Link>
         </div>
       </div>
     </div>
